@@ -70,6 +70,7 @@ export default {
 	methods: {
 		// API CALLS
 		// currently these are dummy calls, therefore no error handling is required
+		// adds the text from the input field as new task with default state "open" and clears the input
 		addNewTodo: function () {
 			axios
 				.get(config.apiUrl)
@@ -83,6 +84,7 @@ export default {
 					}
 				});
 		},
+		// deletes the task at given index from the list
 		removeTodo: function (index) {
 			axios
 				.get(config.apiUrl)
@@ -90,14 +92,15 @@ export default {
 					this.taskList.splice(index, 1);
 				});
 		},
-		onChangeState: function(todo, newVal) {
+		// set the given task state to the given task
+		onChangeState: function(task, newState) {
 			axios
 				.get(config.apiUrl)
 				.then( response => {
-					if(newVal){
-						todo.done = config.taskState.COMPLETE;
+					if(newState){
+						task.done = config.taskState.COMPLETE;
 					} else {
-						todo.done = config.taskState.OPEN;
+						task.done = config.taskState.OPEN;
 					}
 				});
 		},
